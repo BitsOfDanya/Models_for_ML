@@ -66,7 +66,6 @@ print("Лучшие параметры:", grid_search.best_params_)
 best_model = grid_search.best_estimator_['classification']
 best_model.fit(X_train, y_train)
 
-# Изменение порога классификации для улучшения распознавания класса '1'
 threshold = 0.35  # Новый порог
 y_pred_proba = best_model.predict_proba(X_val)[:, 1]
 y_pred_val = (y_pred_proba > threshold).astype(int)

@@ -12,7 +12,7 @@ import numpy as np
 def load_and_prepare_data(file_path, has_labels=True):
     data = pd.read_csv(file_path, header=None, sep=';')
     if has_labels:
-        data = data[data.iloc[:, -1] != 'class']  # Удаление строки с заголовком
+        data = data[data.iloc[:, -1] != 'class']
         features_df = data.iloc[:, :-1].astype(float)
         labels_series = data.iloc[:, -1].astype(int)
         return features_df, labels_series
