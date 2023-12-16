@@ -47,7 +47,9 @@ parameters = {
     'classification__min_child_weight': [1, 2, 3],
     'classification__gamma': [0, 0.1, 0.2],
     'classification__subsample': [0.7, 0.8, 0.9],
-    'classification__colsample_bytree': [0.7, 0.8, 0.9]
+    'classification__colsample_bytree': [0.7, 0.8, 0.9],
+    'classification__lambda': [1, 1.5, 2],
+    'classification__alpha': [0, 0.5, 1]
 }
 
 def custom_metric(y_true, y_pred):
@@ -64,8 +66,9 @@ print("Лучшие параметры:", grid_search.best_params_)
 best_model = grid_search.best_estimator_['classification']
 best_model.fit(X_train, y_train)
 
+# Изменение порога классификации для улучшения распознавания класса '1'
+threshold = 0.35  # Новый порог
 y_pred_proba = best_model.predict_proba(X_val)[:, 1]
-threshold = 0.4  # Можно оптимизировать порог
 y_pred_val = (y_pred_proba > threshold).astype(int)
 
 accuracy = accuracy_score(y_val, y_pred_val)
